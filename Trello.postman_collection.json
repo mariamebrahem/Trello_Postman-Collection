@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "3e30c1f3-251c-440b-a30c-a6a123355f87",
+		"name": "Trello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27757736"
+	},
+	"item": [
+		{
+			"name": "create board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"Board_ID\", jsonData.id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/1/boards/?name=APIBootcamb&key={{KEY}}&token={{Token}}&defaultLists=true",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "APIBootcamb"
+						},
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						},
+						{
+							"key": "defaultLists",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"APIBootcamb\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/1/boards/{{Board_ID}}?key={{KEY}}&token={{Token}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{Board_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"List_ID\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/1/lists?name=Nezam&idBoard={{Board_ID}}&key={{KEY}}&token={{Token}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Nezam"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{Board_ID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"Card_ID\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/1/cards?idList={{List_ID}}&key={{KEY}}&token={{Token}}&name=card1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{List_ID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						},
+						{
+							"key": "name",
+							"value": "card1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create checklist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/1/checklists?idCard={{Card_ID}}&key={{KEY}}&token={{Token}}&name=Happy scenarios",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"checklists"
+					],
+					"query": [
+						{
+							"key": "idCard",
+							"value": "{{Card_ID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						},
+						{
+							"key": "name",
+							"value": "Happy scenarios"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete card",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/1/cards/{{Card_ID}}?key={{KEY}}&token={{Token}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{Card_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete list",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/1/lists/{{List_ID}}/closed?key={{KEY}}&token={{Token}}&value=true",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{List_ID}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						},
+						{
+							"key": "value",
+							"value": "true"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete board",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/1/boards/{{Board_ID}}?key={{KEY}}&token={{Token}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{Board_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{KEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
